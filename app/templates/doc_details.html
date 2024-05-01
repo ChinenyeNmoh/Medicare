@@ -1,0 +1,140 @@
+{% extends('base.html') %}
+{% block content %}
+<div class="uni-banner-default uni-background-1">
+    <div class="container-fluid">
+        <!-- Page title -->
+        <div class="page-title">
+            <div class="page-title-inner ">
+                <h1 class="text-white pt-5 depart">DOCTORS DETAILS</h1>
+            </div>
+        </div>
+        <!-- End page title -->
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <div class="uni-our-doctor-item-default">
+                <div class="item-img">
+                    <a href="#"><img src="{{url_for('static', filename='images/team/' + doctor.picture)}}" alt="" class="img-responsive"></a>
+                </div>
+                <div class="item-caption">
+                    <div class="item-caption-head">
+                        <div class="col-md-3 col-sm-3 col-xs-3 uni-clear-padding">
+                            <div class="item-icons" style="height: 100px;">
+                                {% for dept in departments %}
+                                {% if doctor.department == dept.title %}
+                                <img src="{{url_for('static', filename= dept.image )}}" alt="">
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9 uni-clear-padding">
+                            <div class="item-title">
+                                <h4>{{doctor.first_name}}&nbsp;{{doctor.last_name}}<br>
+                                    <i>{{doctor.department}}</i>
+                                </h4>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-caption-info">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td class="fw-bold">Designation</td>
+                                <td>{{doctor.designation}}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for  sc in schedules %}
+                            <tr>
+                                <td class="fw-bold">{{sc.day_of_week}}</td>
+                                <td>{{ sc.start_time.strftime('%H:%M') }}Am - {{ sc.end_time.strftime('%H:%M') }}Pm</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class=" d-flex justify-content-center">
+                            <ul class="d-flex  gap-2">
+                                <li ><a  href="{{doctor.facebook}}" ><i class="fa fa-facebook text-primary border border-dark p-3" aria-hidden="true"></i></a></li>
+                                <li ><a href="{{doctor.twitter}}" class="text-decoration-none"><i class="fa-brands fa-x-twitter text-dark border border-dark p-3"></i></a></li>
+                                <li><a href="{{doctor.linkedin}}"><i class="fa-brands fa-linkedin text-primary border border-dark p-3"></i></a></li>
+                                <li><a href="{{doctor.youtube}}"><i class="fa fa-youtube-play text-danger border border-dark p-3" aria-hidden="true"></i></a></li>
+                                <li><a href="{{doctor.instagram}}"><i class="fa fa-instagram border border-dark p-3" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+             <!--SUMMARY-->
+             <div class="uni-doctor-details-degrees">
+                <div class="uni-doctor-details-title">
+                    <h3 class="summ mt-5 text-center">Bio<hr class="bg-primary"></h3>
+                    <div class="uni-divider"></div>
+                </div>
+                <p class="paradoc">
+                    {{doctor.bio}}
+                </p>
+            </div>
+
+            <!--EDUCATION/DEGREE-->
+            <div class="uni-doctor-details-degrees">
+                <div class="uni-doctor-details-title">
+                     <h3 class="text-center">Education History <hr class="bg-primary"></h3>
+                    <div class="uni-divider"></div>
+                </div>
+                <ul>
+                    {% for edu in educations %}
+                    <li>
+                        <span class="text-dark" >{{edu.date_started}}  - {{edu.date_ended}}</span>:	{{edu.school}}
+                        <p>{{edu.course_of_study}}(<span class="text-dark" >{{edu.certificate_type}}</span>)</p>
+                    </li>
+                    {% endfor %}   
+                </ul>
+            </div>
+
+            
+            <!--Work Experience-->
+            <div class="uni-doctor-details-degrees">
+                <div class="uni-doctor-details-title">
+                     <h3 class="text-center">Work Experience <hr class="bg-primary"></h3>
+                    <div class="uni-divider"></div>
+                </div>
+                <ul>
+                    {% for ex in experiences %}
+                    <li>
+                        <span class="text-dark" >{{ex.start_date}}  - {{ex.end_date}}</span>:	{{ex.position}}
+                        <p>{{ex.company}}</p>
+                    </li>
+                    {% endfor %} 
+                </ul>
+            </div>
+
+            <!--CONTACT-->
+            <div class="uni-doctor-details-contact">
+                <div class="uni-doctor-details-title">
+                    <h3 class="text-center">Contacts <hr class="bg-primary"></h3>
+                    <div class="uni-divider"></div>
+                </div>
+                <ul>
+                    <li> <i class="fa fa-map-marker text-success" aria-hidden="true"></i>{{doctor.contact_address}}</li>
+                    <li><i class="fa fa-phone text-dark" aria-hidden="true"></i>{{doctor.phone_number}}</li>
+                    <li><i class="fa fa-envelope-o text-danger" aria-hidden="true"></i> {{doctor.email}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock %}

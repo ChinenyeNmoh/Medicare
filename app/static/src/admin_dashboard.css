@@ -1,0 +1,21 @@
+.edu{
+    display: none !important;
+}
+
+.seen{
+    display: block !important;
+}
+
+.unseen{
+    display: none;
+}
+
+.work{
+    display: none;
+}
+
+.doc_link {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+  }

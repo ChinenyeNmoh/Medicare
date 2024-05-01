@@ -1,0 +1,53 @@
+{% extends "admin_dashboard.html" %}
+{% block admin_dashboard_content %}
+<div class="main-bar">
+    <div class="d-flex justify-content-between bg-light my-dash pt-2 pb-2">
+        <h5 class="text-center ms-2 pt-1 pb-1">Appointment Full Details</h5>
+        <a href="{{url_for('admin.todays_appointments')}}" class="btn btn-danger me-2 pt-0 ">Back</a>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row mt-5 mb-5">
+            <div class="col-md-8 bg-light">
+                
+                    <div class="card bg-light" style="height: 100%;">
+                        <div class="card-body fw-bold" style="color: #413e3e;">
+                            <p>Appointment No: {{appointment_detail.appointment_no}}</p>
+                            <p>Appointment Date: {{appointment_detail.appointment_date}}</p>
+                            {% if appointment_detail.appointment_time[0:2] | int < 12 %}
+                            <p>Appointment time: {{appointment_detail.appointment_time}}AM</p>
+                            {% else %}
+                            <p>Appointment time: {{appointment_detail.appointment_time}}PM</p>
+                            {% endif %}
+                            <hr>
+                            <p>Doctor: {{doc.first_name}} {{doc.last_name}}</p>
+                            <p>Department: {{doc.department}}</p>
+                            <p>Designation: {{doc.designation}}</p>
+                            <hr>
+                            <p>Consultation Fee: N{{doc.consultation_fee}}</p>
+                            {% if appointment_detail.payment_status == 'Pending' %}
+                            <p>Payment Status: <span class="bg-danger p-1 text-white rounded-pill">{{appointment_detail.payment_status}}</span></p>
+                            {% else %}
+                            <p>Payment Status: <span class="bg-success p-1 text-white rounded-pill">{{appointment_detail.payment_status}}</span></p>
+                            {% endif %}
+                            <p>Appointment Status: <span class="bg-primary p-1 text-white rounded-pill">{{appointment_detail.appointment_status}}</span></p>
+                            <hr>
+                            <p>Doctors Comment: <span class="fw-normal">{{appointment_detail.appointment_comment}}</span></p>
+                        </div>
+                    </div>
+               
+
+            </div>
+            <div class="col-md-4">
+                <img src="{{url_for('static', filename='images/team/' + doc.picture )}}" alt="">
+                <h5 class="text-center mt-2 text-primary">Doctor {{doc.first_name}} {{doc.last_name}}</h5>
+    
+            </div>
+        </div>
+        
+
+    </div>
+ 
+</div>
+</div>
+{% endblock %}

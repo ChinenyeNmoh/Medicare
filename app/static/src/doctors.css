@@ -1,0 +1,108 @@
+/*DOCTOR*/
+.uni-our-doctor .uni-our-doctor-body {
+    padding: 100px 0; }
+  
+  .uni-our-doctor .uni-shortcode-tabs-default .tabbable-line > .tab-content {
+    padding-top: 60px; }
+  
+  .uni-our-doctor-item-default {
+    margin-bottom: 30px; }
+
+    .uni-our-doctor-item-default .item-img img {
+      width: 100%;
+      height: auto; }
+    .uni-our-doctor-item-default .item-img a {
+      position: relative;
+      display: block; }
+      .uni-our-doctor-item-default .item-img a:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        -webkit-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s; }
+      .uni-our-doctor-item-default .item-img a:after {
+        content: '\f00e';
+        position: absolute;
+        font-family: FontAwesome;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s; }
+    .uni-our-doctor-item-default .item-caption .item-caption-head {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      background-color: #333333;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      transition: all 0.5s; }
+      .uni-our-doctor-item-default .item-caption .item-caption-head .item-icons {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        height: 70px;
+        background-color: #3f97da; }
+      .uni-our-doctor-item-default .item-caption .item-caption-head .item-title {
+        padding-left: 15px; }
+        .uni-our-doctor-item-default .item-caption .item-caption-head .item-title h4 {
+          font-family: 'Poppins';
+          font-weight: 600;
+          font-style: normal;
+          font-stretch: normal;
+          letter-spacing: normal;
+          text-align: left;
+          font-size: 18px;
+          line-height: 1;
+          color: #ffffff;
+          text-transform: uppercase;
+          -webkit-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          transition: all 0.5s; }
+        .uni-our-doctor-item-default .item-caption .item-caption-head .item-title i {
+          font-family: 'Poppins';
+          font-size: 14px;
+          font-weight: 600;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.5;
+          letter-spacing: normal;
+          text-align: left;
+          color: #3f97da;
+          text-transform: uppercase;
+          -webkit-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          transition: all 0.5s; }
+    .uni-our-doctor-item-default .item-caption .item-caption-info {
+      background-color: #f4f4f4;
+      padding: 0 20px; }

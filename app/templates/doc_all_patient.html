@@ -1,0 +1,104 @@
+{% extends "doc_dashboard.html" %}
+{% block doc_dashboard_content %}
+<div class="main-bar">
+    
+    <div class="d-flex justify-content-between bg-light my-dash pt-2 pb-2">
+        <h5 class="text-center bg-light ms-2">My Patients</h5>
+        {% if prev_page %}
+            <a href="{{ prev_page}}" class="btn btn-danger me-2 pt-0">Back</a>
+        {% endif %}
+    </div>    
+    <div class="d-flex justify-content-between mt-5">
+        <div class="d-flex">
+            <span class="pt-2 pe-2 ms-3">show entries</span>
+            <form  class="d-flex" method="GET" action="{{ url_for('doctor.all_patients') }}">
+                <select id="entries" name="entries" class="form-select form-select-sm me-2 rounded" aria-label=".form-select-sm example">
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="12">12</option>
+                    <option value="15">15</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form> 
+        </div>                          
+        
+        <form class="d-flex" method="GET", action="{{ url_for('doctor.all_patients') }}">
+            <input style="height: 40px;" id="search_querys" name="search_query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button style="height: 40px;"  class="btn btn-outline-success me-4" type="submit">Search</button>
+        </form>
+    </div>      
+    <div class="table-responsive">
+    <table class="table table-sm table-bordered" id="main-table">
+        <thead>
+            <tr>
+                <td class="bg-light" id="main-link" >No</td>
+                <td class="bg-light" id="main-link" >Name</td>
+                <td class="bg-light" id="main-link" >Gender</td>
+                <td class="bg-light" id="main-link" >Email</td>
+                <td class="bg-light" id="main-link" >Open Appointment</td>
+                <td class="bg-light" id="main-link">Action</td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for pat in patients %}
+            <tr >
+                <td  id="main-link">{{loop.index}}</td>
+                <td  id="main-link">{{pat.first_name}} {{pat.last_name}}</td>
+                <td  id="main-link">{{pat.gender}}</td>
+                <td  id="main-link">{{pat.email}}</td>
+                <td id="main-link">
+                    {% set any_appointment_booked = [] %}
+                    {% for app in pat.appointments %}
+                        {% if app.doctor_id == current_user.id %}
+                        {% set _ = any_appointment_booked.append(app.appointment_status) %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if 'Booked' in any_appointment_booked %}
+                        Yes
+                    {% else %}
+                        No  
+                    {% endif %}
+                </td>
+                       
+                
+                <td >
+                    <div class="d-flex justify-content-center mt-2 ">  
+                        
+                        <a class="text-decoration-none btn btn-outline-success" href="{{ url_for('main.doc_book_appointment', id=pat.id)}}"> book </a>
+                    </div>
+                </td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+</div>
+<div class="d-flex justify-content-between">
+    {% if per_page <= total %}
+    <p class="ms-3" >showing {{per_page}} of {{total}} entries</p>
+    {% else %}
+    <p class="ms-3">showing {{total}} of {{total}} entries</p>
+    {% endif %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center me-3">
+        {% if patients %}
+          {% for page_num in patients.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+              {% if patients.page == page_num %}
+              <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('doctor.all_patients', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+              {% else %}
+              <a class="page-link me-1 ms-1" href="{{ url_for('doctor.all_patients', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+              {% endif %}
+            {% else %}
+             <p class="me-1 ms-1">...</p>
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+        </ul>
+      </nav>         
+                         
+</div>
+</div>
+</div>
+{% endblock %}

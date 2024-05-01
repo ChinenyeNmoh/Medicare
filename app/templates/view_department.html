@@ -1,0 +1,104 @@
+{% extends "admin_dashboard.html" %}
+{% block admin_dashboard_content %}
+<div class="main-bar">
+    <h5 class="text-center bg-light my-dash pt-2"> All Departments</h5>
+    <div class="card my-profile">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <span class="pt-2 pe-2">show entries</span>
+                            <form  class="d-flex" method="GET" action="{{ url_for('admin.view_department') }}">
+                                <select id="entries" name="entries" class="form-select form-select-sm me-2 rounded" aria-label=".form-select-sm example">
+                                    <option value="3">3</option>
+                                    <option value="6">6</option>
+                                    <option value="9">9</option>
+                                    <option value="12">12</option>
+                                    <option value="15">15</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary">Apply</button>
+                            </form> 
+                        </div>                          
+                        
+                        <form class="d-flex" method="GET", action="{{ url_for('admin.view_department') }}">
+                            <input style="height: 40px;" id="search_query" name="search_query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button style="height: 40px;"  class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table table-sm table-bordered" id="main-table">
+                        <thead class="text-start">
+                            <tr>
+                                <td class="bg-light" id="main-link">ID</td>
+                                <td class="bg-light" id="main-link">Title</td>
+                                <td class="bg-light" id="main-link">Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dept in departments %}
+                            <tr >
+                                <td id="main-link">{{ loop.index }}</td> <!-- Use loop.index to auto-increment ID -->
+                                <td id="main-link">{{ dept.title }}</td>
+                                <td id="main-link">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ dept.id }}">Edit</button>
+                                    <!-- Modal -->
+                                    {% include "update_department.html" %}
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{ dept.id }}">Delete</button>
+                                    <div class="modal fade" id="staticBackdrop2{{ dept.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body bg-light" style="height: 200px;">
+                                                    Are you sure you want to delete {{ dept.title }} department
+                                                    <div class="modal-footer">
+                                                        <div class=" text-center">
+                                                            <button type="button" class="btn btn-outline-info bg-primary mt-3 text-white" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="button" onclick="deleteDepartment('{{ dept.id }}')"  class="btn btn-danger mt-3 text-white">Yes</button>
+                                                        </div>
+                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="d-flex justify-content-between">
+                        {% if per_page <= total %}
+                        <p>showing {{per_page}} of {{total}} entries</p>
+                        {% else %}
+                        <p>showing {{total}} of {{total}} entries</p>
+                        {% endif %}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                              {% for page_num in departments.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                                {% if page_num %}
+                                  {% if departments.page == page_num %}
+                                  <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('admin.view_department', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+                                  {% else %}
+                                  <a class="page-link me-1 ms-1" href="{{ url_for('admin.view_department', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+                                  {% endif %}
+                                {% else %}
+                                 <p class="me-1 ms-1">...</p>
+                                {% endif %}
+                              {% endfor %}
+                            </ul>
+                          </nav>                          
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

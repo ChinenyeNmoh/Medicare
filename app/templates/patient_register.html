@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center"> <!-- Center the content horizontally -->
+        <div class="col-md-6"> <!-- Make it 50% width on medium screens and above -->
+            <div class="card w-70 mt-5">
+                <div class="card shadow">
+                <div class="card-body bg-light">
+                    <h1 class="depart text-center">Register </h1>
+                    <small class="text-muted mb-2">Fields with <span style="color: red;">*</span> are compulsory</small>
+                  <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-md-6" >
+                            <fieldset class="form-group " >
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.first_name.label(class="form-control-label form-control-sm mt-2") }}
+                                    {% if form.first_name.errors %}
+                                        {{ form.first_name(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.first_name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.first_name(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <!-- Add more field groups in a similar manner -->
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.date_of_birth.label(class="form-control-label form-control-sm mt-2 ") }}
+                                    {% if form.date_of_birth.errors %}
+                                        {{ form.date_of_birth(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.date_of_birth.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.date_of_birth(class=" form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form.gender.id }}" class="form-label mt-2">
+                                        <span style="color: red;">*</span>
+                                        {{ form.gender.label.text }}
+                                    </label>
+                                    {% if form.gender.errors %}
+                                        {{ form.gender(class="form-select is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.gender.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.gender(class="form-select", style="height: 35px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.phone_number.label(class="form-control-label form-control-sm mt-2") }}
+                                    {% if form.phone_number.errors %}
+                                        {{ form.phone_number(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.phone_number.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.phone_number(class=" form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.password.label(class="form-control-label mt-2") }}
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.password(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset class="form-group" >
+                                <div class="form-group" >
+                                    <span style="color: red;">*</span>
+                                    {{ form.last_name.label(class="form-control-label form-control-sm mt-2") }}
+                                    {% if form.last_name.errors %}
+                                        {{ form.last_name(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.last_name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.last_name(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <!-- Add more field groups in a similar manner -->
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.age.label(class="form-control-label mt-2 mb-2") }}
+                                    {% if form.age.errors %}
+                                        {{ form.age(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.age.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.age(class=" form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.email.label(class="form-control-label mt-2 mb-2") }}
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control form-control-sm is-invalid", autocapitalize="none") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.email(class="form-control form-control-sm", style="height: 35px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.contact_address.label(class="form-control-label mt-2 mb-2") }}
+                                    {% if form.contact_address.errors %}
+                                        {{ form.contact_address(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.contact_address.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.contact_address(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.confirm_password.label(class="form-control-label mt-2") }}
+                                    {% if form.confirm_password.errors %}
+                                        {{ form.confirm_password(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.confirm_password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.confirm_password(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        {{ form.submit(class="btn btn-outline-info bg-primary mt-3 text-white") }}
+                    </div>
+                </form>
+            </div>
+            <div class="border-top mt-3 mb-3 d-flex justify-content-center">
+                <small class="text-muted">
+                    Already Have An Account? <a class="ml-2" href="{{ url_for('patient.login') }}">Sign In</a>
+                </small>
+            </div>
+                  
+                </div>
+                </div>
+              </div>
+        </div>
+        </div>
+
+    </div>
+
+</div>
+    
+{% endblock content %}

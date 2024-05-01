@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center"> <!-- Center the content horizontally -->
+        <div class="col-md-6"> <!-- Make it 50% width on medium screens and above -->
+            <div class="card w-70 mt-5">
+                <div class="card shadow">
+                <div class="card-body bg-light">
+                    <h1 class="depart text-center">Login </h1>
+                  <form method="POST" action="" >
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group ">
+                        <div class="form-group">
+                            {{ form.email.label(class="form-control-label mt-2 mb-2") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control form-control-sm is-invalid", autocapitalize="none") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control form-control-sm", style="height: 30px;") }}
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.password.label(class="form-control-label mt-2 mb-2") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-sm is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password(class="form-control form-control-sm", style="height: 30px;") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-check mt-3">
+                            {{ form.remember(class="form-check-input") }}
+                            {{ form.remember.label(class="form-check-label") }}
+                        </div>
+                    </fieldset>
+                    <div class="form-group text-center">
+                        {{ form.submit(class="btn btn-outline-info bg-primary mt-3 text-white") }}
+                        <small class="text-muted ml-2">
+                            <a href="{{ url_for('patient.passwordReset') }}">Forgot Password?</a>
+                        </small>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="border-top">
+                <small class="text-muted">
+                    Don't have an account? <a class="ml-2 " href="{{ url_for('patient.patient_register') }}">Register</a>
+                </small>
+            </div>  
+                </div>
+                </div>
+              </div>
+        </div>
+        </div>
+
+    </div>
+
+</div>
+    
+{% endblock content %}

@@ -1,0 +1,202 @@
+* {
+    box-sizing: border-box !important;
+    transition: ease all 0.5s;
+  
+    
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.service{
+    background-color: #3f97da;
+}
+
+.site-footer{
+    background-color: #2d3840;
+}
+
+
+ul,
+li,
+ol {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.uni-social h4 {
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.14;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.uni-social ul {
+        display: inline-block;
+}
+.uni-social ul li {
+        float: left;
+        margin-right: 10px; 
+}
+.uni-social ul li a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: solid 1px #3f97da;
+    font-family: FontAwesome;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.86;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s; }
+
+.uni-social ul li {
+        margin-right: 5px;
+}
+.foot{
+    font-family: 'Poppins';
+    font-size: 16px;
+}
+
+.uni-info-contact ul li {
+            font-family: 'Poppins';
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.14;
+            letter-spacing: normal;
+            text-align: left;
+            color: #3f97da;
+}
+.uni-info-contact ul li i {
+                font-family: FontAwesome;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 2.14;
+                letter-spacing: normal;
+                text-align: left;
+                color: #ffffff;
+                margin-right: 10px; 
+}
+
+.widget-title {
+                    font-family: 'Poppins';
+                    font-size: 24px;
+                    font-weight: 600;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.25;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #3f97da;
+                    margin: 0;
+                    padding-bottom: 30px;
+                 }
+
+
+    .footer-main-content-element {
+                        margin-bottom: 40px; 
+    } 
+    .footer-default .footer-main-content p {
+                      font-family: 'Poppins';
+                      font-size: 14px;
+                      font-weight: normal;
+                      font-style: normal;
+                      font-stretch: normal;
+                      line-height: 1.71;
+                      letter-spacing: normal;
+                      text-align: left;
+                      color: #ffffff; 
+    }
+
+                      .uni-send-a-message-body {
+                        padding-top: 40px; }
+
+
+   .input-group-addon {
+      width: 50px;
+      height: 50px;
+      background: #3f97da;
+      color: #fff;
+      border: none;
+      border-radius: 0; }
+      .input-group-addon.btn {
+        background: transparent;
+        border: 1px solid #e0e0e0;
+        border-left: none;
+        color: #333; }
+     .input-group input {
+      height: 50px;
+      border-radius: 0; }
+    .form-control {
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: left;
+      border-color: #e0e0e0; }
+    .uni-send-a-message .uni-send-a-message-body .input-group textarea {
+      height: 170px;
+      border: solid 1px #e0e0e0; }
+
+      /*contact opening hours*/
+.uni-contact-us-title {
+    background-color: #333333;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .icon {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      width: auto;
+      height: 80px;
+      float: left;
+      font-family: 'poppins';
+      font-size: 48px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 0.75;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff; }
+  .uni-contact-us-hours-content {
+    background: #3f97da;
+    padding: 20px 30px; }
+    

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid p-dash">
+    <div class="row">
+        <div class="col-md-3">
+            <h5 class="mt-5 mb-3">Hello Admin&nbsp;<span class="text-primary">{{ current_user.first_name }}</span></h5>
+            <div class="side-bar">
+                <table class="table table-hover" id="p-table">
+                    <thead>
+                        <tr>
+                            <td class="bg-light fw-bold text-center quick" style="height: 40px;">Quick Links</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="link">
+                                <a style="height: 30px;" href="{{url_for('admin.adminDashboard')}}" id="link" class="d-flex align-items-center text-decoration-none">
+                                    <i class="fa-solid fa-table-columns text-primary me-4 fs-5"></i>
+                                    Dashboard
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accordion">
+                                <div id="accordionapt">
+                                    <button class="accordion-button collapsed link" style="height: 30px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseapt" aria-expanded="false" aria-controls="collapseapt">
+                                        <i class="fa-solid fa-calendar-days text-primary me-4 fs-5"></i>
+                                            <p class="pt-3">Appointments</p>
+                                    </button>
+                                    <div id="collapseapt" class="accordion-collapse collapse" aria-labelledby="headingapt" data-bs-parent="#accordionapt">
+                                        <div class="accordion-body">
+                                            <ul class="text-start">
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.todays_appointments')}}">Today's Appointments</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.admin_open_appointments')}}">Open Appointments</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.admin_closed_appointments')}}">Closed Appointments</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td class="accordion">
+                                <div id="accordionExample">
+                                    <button class="accordion-button collapsed link" style="height: 30px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDepartment" aria-expanded="false" aria-controls="collapseDepartment">
+                                        <i class="fa-solid fa-building text-primary  me-4 fs-5 text-start"></i>
+                                       <p class="pt-3 ms-1">Department</p> 
+                                    </button>
+                                    <div id="collapseDepartment" class="accordion-collapse collapse" aria-labelledby="headingDepartment" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <ul class="text-center">
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.view_department')}}">View Department</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.create_department')}}">Add Department</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accordion">
+                                <div id="accordionDoctors">
+                                    <button class="accordion-button collapsed link" style="height: 30px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDoctors" aria-expanded="false" aria-controls="collapseDoctors">
+                                        <i class="fa-solid fa-user-doctor text-primary me-4 fs-5 text-start"></i>
+                                        <p class="pt-3 ms-1">Doctors</p>
+                                    </button>
+                                    <div id="collapseDoctors" class="accordion-collapse collapse" aria-labelledby="headingDoctors" data-bs-parent="#accordionDoctors">
+                                        <div class="accordion-body">
+                                            <ul class="text-center">
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.admin_view_doctors')}}">View Doctor</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.addDoctor')}}">Add Doctor</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td id="link">
+                                <a style="height: 30px;" href="#" id="link" class="d-flex align-items-center text-decoration-none">
+                                    
+                                    <i class="fa-solid fa-hospital-user text-primary me-4 fs-5"></i>
+                                    Patients
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="link">
+                                <a style="height: 30px;" href="#" id="link" class="d-flex align-items-center text-decoration-none">
+            
+                                    <i class="fa-solid fa-list-check text-primary me-4 fs-5"></i>
+                                    Manage Admin
+                                </a>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="accordion">
+                                <div id="accordionweb">
+                                    <button class="accordion-button collapsed link" style="height: 30px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseweb" aria-expanded="false" aria-controls="collapseweb">
+                                        <i class="fa-solid fa-gear text-primary me-4 fs-5 text-start"></i>
+                                        <p class="pt-3 ms-1">Website Setting</p>
+                                    </button>
+                                    <div id="collapseweb" class="accordion-collapse collapse" aria-labelledby="headingweb" data-bs-parent="#accordionweb">
+                                        <div class="accordion-body">
+                                            <ul class="text-start">
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.create_hospital_details')}}">Add Hospital Details</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.update_hospital_details')}}">Update Hospital Details</a></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td id="link">
+                                <a style="height: 30px;" href="{{ url_for('patient.logout') }}" id="link" class="d-flex align-items-center text-decoration-none">
+                                    <i class="fa-solid fa-right-from-bracket text-danger me-4 fs-5 text-start"></i>
+                                    Log Out
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-9">
+        {% block admin_dashboard_content %}
+        {% endblock %} 
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

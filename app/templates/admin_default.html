@@ -1,0 +1,120 @@
+{% extends "admin_dashboard.html" %}
+{% block admin_dashboard_content %}
+
+<div class="main-bar">
+    <div class="d-flex bg-light my-dash pt-2" style="height: auto;">
+        <i class="fa-solid fa-gauge ms-2 fs-2 me-2 mt-1 text-danger"></i>
+        <h5 class="fs-2"> Dashboard</h5>
+    </div>
+    <div class="card my-profile">
+        <div class="card-body text-center">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Today's Appointments</p>
+                        </div>
+                        <h1 class="text-danger">{{todays_appointments}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Open Appointments</p>
+                        </div>
+                        <h1 class="text-danger">{{open_appointment}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Closed Appointments</p>
+                        </div>
+                        <h1 class="text-danger">{{closed_appointment}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="fa fa-user-md fa-2x text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Active Doctors</p>
+                        </div>
+                        <h1 class="text-danger">{{doc_count}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="fa-solid fa-hospital-user text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Active Patients</p>
+                        </div>
+                        <h1 class="text-danger">{{patient_count}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="fa-solid fa-user-tie text-primary fs-2"></i><br>
+                            <p class="fw-bold">Admin</p>
+                        </div>
+                        <h1 class="text-danger">{{admin_count}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-5">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="fa-solid fa-building text-primary fs-2 "></i><br>
+                            <p class="fw-bold">Departments</p>
+                        </div>
+                        <h1 class="text-danger">{{count}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <legend class="fw-bold mb-5 mt-5">Available Appointment Slots doctor <span class="text-success">{{ doc.first_name }}</span></legend>
+    
+    <div class="row">
+        {% for appointment_day, day_name in appointment_info %}
+            <div class="col-md-4 mb-5">
+                <div class="card shadow" style="height: 100%;">
+                    <div class="card bg-light" style="height: 100%;">
+                        <div class="card-header d-flex">
+                            <i class="fa-solid fa-calendar-days text-primary mt-2 fs-5 me-2"></i>
+                            <div class="mt-2 d-flex app_gap"> 
+                                <p class="fw-bold">{{ appointment_day }}</p> 
+                                <p class="bg-secondary text-white p-1 rounded-3">{{ day_name }}</p>
+                            </div>
+                        </div>
+                        {% for time in doc_time %}
+                            {% if time.day_of_week == day_name.strip() %}
+                                <div class="card-body" style="height: 100%;">
+                                    <div class="fw-bold mb-4">
+                                        {{ time.start_time.strftime('%H:%M') }}AM - {{ time.end_time.strftime('%H:%M') }}PM
+                                    </div>
+                                    <div>
+                                        <form method="GET" action="{{ url_for('main.appointment', id=time.doctor_id) }}">
+                                            <small class="text-danger">Select time</small>
+                                            <input type="hidden" name="appointment_day" value="{{ appointment_day }}">
+                                            <input type="hidden" name="day_name" value="{{ day_name }}">
+                                            <div class="row">
+                                                {% set start_time, end_time = generate_int_time(time.start_time, time.end_time) %}
+                                                {% set appointment_slots = generate_appointment_slots(start_time, end_time) %}
+                                                {% for slot in appointment_slots %}
+                                                    <div class="col-md-4">
+                                                        {% set appointment_time = appointment_dict.get(time.day_of_week) %}
+                                                        {% if (time.day_of_week == now.strftime("%A") and slot < now.strftime("%H:%M")) or (slot.strip() == appointment_time and time.day_of_week in appointment_dict) %}
+                                                            <div class="form-check bg-danger rounded text-white mb-3 ">
+                                                                <input type="radio" id="time{{ loop.index }}" name="appointment_time" value="{{ slot }}" disabled required>
+                                                                <label class="form-check-label text-decoration-line-through" for="time{{ loop.index }}">
+                                                                    {{ slot }}
+                                                                </label>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="form-check bg-secondary rounded text-white mb-3">
+                                                                <input type="radio" id="time{{ loop.index }}" name="appointment_time" value="{{ slot }}" required>
+                                                                <label class="form-check-label" for="time{{ loop.index }}">
+                                                                    {{ slot }}
+                                                                </label>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-primary">book</button>                     
+                                        </form>                    
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="card-footer text-muted d-flex justify-content-center gap-3">
+                            <div class="d-flex">
+                                <button class="bg-secondary btn mt-2 me-1" style="height: 10px; width: 5px;"></button>
+                                <p class="pt-1">Available</p>
+                            </div>
+                            <div class="d-flex">
+                                <button class="bg-danger btn mt-2 me-1" style="height: 10px; width: 5px;"></button>
+                                <p> Not Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

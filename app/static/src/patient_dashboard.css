@@ -1,0 +1,159 @@
+.p-dash {
+    box-shadow: inset 0px 10px 10px -10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    height: 100%;
+}
+
+.side-bar{
+    border: #c0bebe 1px solid;
+    width: 80%;
+    border-radius: 10px;
+    height: auto;
+}
+
+#p-table{
+    color: #333 !important;
+    line-height: 1 !important;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0px;
+    
+}
+
+.quick{
+    height: 40px;
+    border-radius: 10px;
+}
+
+#main-table{
+    color: #333 !important;
+    width: 96%;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+#link{
+    color: #333 !important;
+    font-weight: 800;
+    font-family: FontAwesome;
+    text-align: start;
+    font-family: 'Poppins';
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+.my-dash{
+    border-radius: 8px;
+    height: 40px;
+    border-bottom: 1px solid #c0bebe;
+}
+
+#main-link{
+        color: #333 !important;
+        font-weight: 800;
+        font-family: FontAwesome;
+        text-align: start;
+        font-family: 'Poppins';
+        font-size: 16px;
+        padding-left: 20px;
+        height: 50px;
+        padding-top: 15px;
+}
+
+.main-bar{
+    border: 1px solid #c0bebe!important;
+    margin-top: 90px;
+    border-radius: 10px;
+    height: auto;
+}
+
+
+.p-book{
+    background-color: #3f97da;
+    width: 90px;
+    height: 0px;
+    border-radius: 75px;
+    margin-top: 30px;
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+
+}
+
+.p-view{
+    width: 90px;
+    height: 0px;
+    
+    padding: 10px;
+    margin-left: 20px;
+    align-items: center;
+    font-weight: 800;
+    
+    text-align: start;
+    font-family: 'Poppins';
+    font-size: 14px;
+    padding-left: 10px;
+    color: white !important;
+    text-decoration: none;
+}
+
+.my-profile{
+    width: 95%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.create-dept{
+    margin-left: 150px;
+}
+
+.link{
+    color: #333 !important;
+    font-weight: 800 !important;
+    font-family: FontAwesome !important;
+    text-align: start !important;
+    font-family: 'Poppins' !important;
+    font-size: 16px !important;
+    padding-left: 30px;
+    
+}
+
+    /* Define dotted decoration for list items */
+    .dept-link {
+        list-style: none; /* Remove default list-style */
+        color: #333;
+        font-weight: 600;
+        
+    }
+
+    .dept-link:hover{
+        color: 3f97da;
+    }
+    
+    .dept-link:before {
+        content: "•"; /* Use a bullet character for the dotted decoration */
+        color: #333; /* Change color as needed */
+        font-size: larger; /* Adjust size if necessary */
+        padding-right: 10px; /* Add some space between the bullet and the text */
+    }
+
+    /* Additional styles for the anchor tags */
+    .dept-link a {
+        text-decoration: none; /* Remove underline from links */
+        padding: 0px 0px;
+        margin: 0px;
+        color: #333;
+        
+    }
+
+.view{
+    margin-top: 8px;
+}
+
+.app_gap{
+    gap: 9rem;
+}

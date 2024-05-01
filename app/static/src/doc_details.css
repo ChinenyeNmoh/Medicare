@@ -1,0 +1,94 @@
+.read_more{
+    background-color: #3f97da;
+    width: 100px;
+    height: 30px;
+    border-radius: 75px;
+    text-align: center;
+}
+.bk_app{
+    background-color: #3f97da;
+    width: 150px;
+    height: 30px;
+    border-radius: 75px;
+    text-align: center;
+}
+
+.paradoc {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    text-justify: auto;
+    font-stretch: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+    text-align: left;
+    color: #666666; 
+  }
+  .uni-doctor-details-degrees {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-left: 50px;
+  }
+    .uni-doctor-details-degrees ul li {
+      position: relative;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.14;
+      letter-spacing: normal;
+      text-align: left;
+      color: #666666;
+      padding-left: 15px; }
+     .uni-doctor-details-degrees ul li:before {
+        position: absolute;
+        top: 7px;
+        left: 0;
+        content: '\f111';
+        font-family: FontAwesome;
+        font-size: 7px;
+        color: #3f97da; }
+    .uni-doctor-details-degrees ul li span {
+        font-weight: 600;
+        padding-right: 5px;
+       }
+
+  .uni-doctor-details-contact {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-left: 50px;
+
+  }
+  .uni-doctor-details-contact ul li {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.14;
+    letter-spacing: normal;
+    text-align: left;
+    color: #666666; }
+    .uni-doctor-details-contact ul li i {
+      color: #3f97da;
+      padding-right: 10px; }
+
+/*CONTACT US*/
+.uni-contact-us-body-content {
+  padding: 100px 0; }
+
+ .summ {
+  font-family: 'Poppins';
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+
+}
+
+.uni-line {
+  width: 120px;
+  height: 1px;
+  background-color: #3f97da; }

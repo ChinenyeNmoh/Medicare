@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="uni-our-doctor-body">
+    <div class="uni-banner-default uni-background-1">
+        <div class="container-fluid">
+            <!-- Page title -->
+            <div class="page-title">
+                <div class="page-title-inner ">
+                    <h1 class="text-white pt-5 depart">Our Doctors</h1>
+                </div>
+            </div>
+            <!-- End page title -->
+        </div>
+    </div>
+    <ul class="nav nav-tabs mb-5 mt-5 d-flex justify-content-center" id="myTab" role="tablist">
+        {% for dept in departments %}
+        <li class="nav-item" role="presentation">
+            {% if loop.index == 1 %}
+            <a class="nav-link active" id="tab_default_{{loop.index}}_tab" data-bs-toggle="tab" href="#tab_default_{{loop.index}}" role="tab" aria-controls="tab_default_{{loop.index}}" aria-selected="true">
+                {{dept.title}}
+            </a>
+            {% else %}
+            <a class="nav-link" id="tab_default_{{loop.index}}_tab" data-bs-toggle="tab" href="#tab_default_{{loop.index}}" role="tab" aria-controls="tab_default_{{loop.index}}" aria-selected="true">
+                {{dept.title}}
+            </a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for dept in departments %}
+        <div class="tab-pane fade {% if loop.index == 1 %}show active{% endif %}" id="tab_default_{{loop.index}}">
+            <div class="row d-flex">
+                <!-- Content for doctors in the current department -->
+                {% for doc in doctors %}
+                {% if doc.department == dept.title %}
+                <div class="col-md-3 col-sm-6 me-4">
+                    <div class="uni-our-doctor-item-default">
+                        <div class="item-img">
+                            <a href="#"><img src="{{ url_for('static', filename='images/team/' + doc.picture) }}" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="item-caption">
+                            <div class="item-caption-head">
+                                <div class="col-md-3 col-sm-3 col-xs-3 uni-clear-padding">
+                                    <div class="item-icons" style="height: 100px;">
+                                        <img src="{{url_for('static', filename= dept.image )}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9 uni-clear-padding">
+                                    <div class="item-title">
+                                        <h4>{{doc.first_name}} {{doc.last_name}} <br>
+                                            <i>{{doc.designation}}</i>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="doc_bord">
+                                <!-- Doctor information -->
+                                <h5 class="text-center">Appointment Time</h5>
+                                <table class="table table-striped ">
+                                    <tbody>
+                                        {% for  sc in schedules %}
+                                        <tr>
+                                            {% if sc.doctor_id == doc.id %}
+                                            <td class="fw-bold">{{sc.day_of_week}}</td>
+                                            <td>{{ sc.start_time.strftime('%H:%M') }}AM - {{ sc.end_time.strftime('%H:%M') }}PM</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tr>
+                                        <td class="fw-bold">Consultation Fee</td>
+                                        <td>N{{doc.consultation_fee}}</td>
+                                    </tr>
+                                    <tfoot>
+                                        <td>
+                                            <div class="read_more">
+                                                <a class="text-white text-decoration-none" href="{{url_for('main.doc_details', id=doc.id)}}">Read More</a>
+                                            </div>
+                                        </td>
+                                       
+                                        <td>
+                                            <div class="bk_app">
+                                                <a class="text-white text-decoration-none" href="{{ url_for('main.appointment', id=doc.id)}}">Book Appointment</a>
+                                            </div>
+                                        </td>
+                                    </tfoot>
+                                </table>
+                                <!-- Buttons -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

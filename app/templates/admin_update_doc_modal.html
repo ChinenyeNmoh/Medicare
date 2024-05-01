@@ -1,0 +1,129 @@
+<div class="modal fade" id="staticBackdrop{{ doc.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center modal-title" id="staticBackdropLabel">Update Doctor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('admin.admin_update_doc', id=doc.id) }}">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                
+                                {{ form.first_name.label(class="form-control-label form-control-sm mt-2 fw-bold") }}
+                                {% if form.first_name.errors %}
+                                    {{ form.first_name(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.first_name(class="form-control form-control-sm ", value=doc.first_name, style="height: 30px;") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                
+                                {{ form.last_name.label(class="form-control-label form-control-sm mt-2 fw-bold") }}
+                                {% if form.first_name.errors %}
+                                    {{ form.last_name(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.last_name(class="form-control form-control-sm", value=doc.last_name, style="height: 30px;") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                
+                                {{ form.designation.label(class="form-control-label form-control-sm mt-2 fw-bold") }}
+                                {% if form.designation.errors %}
+                                    {{ form.designation(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.designation.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.designation(class="form-control form-control-sm", value=doc.designation, style="height: 30px;") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.department.id }}" class="form-label mt-2 fw-bold">
+                                    {{ form.department.label.text }}
+                                </label>
+                                {% if form.department.errors %}
+                                    {{ form.department(class="form-select is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.department.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                <select id="{{ form.department.id }}" name="department" class="form-select" style="height: 37px;">
+                                    {% for choice in form.department.choices %}
+                                        {% if choice[0] == doc.department %}
+                                            <option value="{{ choice[0] }}" selected>{{ choice[1] }}</option>
+                                        {% else %}
+                                            <option value="{{ choice[0] }}">{{ choice[1] }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                {% endif %}
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span style="color: red;">*</span>
+                                    {{ form.consultation_fee.label(class="form-control-label form-control-sm mt-2 fw-bold") }}
+                                    {% if form.consultation_fee.errors %}
+                                        {{ form.consultation_fee(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.consultation_fee.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.consultation_fee(class=" form-control form-control-sm", style="height: 30px;", value=doc.consultation_fee ) }}
+                                    {% endif %}
+                                </div>
+    
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mt-5">
+                                    {{ form.is_active(class="form-check-input", checked=doc.is_active) }}
+                                    {{ form.is_active.label(class="form-check-label fw-bold") }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mt-5">
+                                    {{ form.is_banned(class="form-check-input", checked=doc.is_banned) }}
+                                    {{ form.is_banned.label(class="form-check-label fw-bold") }}
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group text-center">
+                            <button type="button" class="btn btn-outline-info bg-danger mt-3 text-white" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="form-group text-center">
+                            {{ form.submit(class="btn btn-outline-info bg-primary mt-3 text-white") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

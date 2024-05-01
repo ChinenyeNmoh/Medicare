@@ -1,0 +1,106 @@
+{% extends "doc_dashboard.html" %}
+{% block doc_dashboard_content %}
+
+<div class=" main-bar">
+    <div class="d-flex bg-light my-dash pt-2" style="height: auto;">
+        <h3 class="text-center ms-auto me-auto"> Add Details</h3>
+    </div>
+    <div class="card my-profile" >
+        <div class="card-body text-center" >
+            <div class="row "> <!-- Center the content horizontally -->
+                <div class="col-12"> <!-- Make it 50% width on medium screens and above -->
+                    <form method="POST"  class="text-start needs-validation " action="" novalidate>
+                        {{ experience_form.csrf_token(id='experience_csrf_token') }}
+                        <div class="d-flex justify-content-between">
+                            <legend class=" text-center me-5 mt-3 text-success">
+                                <span style="color: red;">*</span>
+                                Work Experience
+                            </legend>
+                        </div>
+                        
+                        <small class="text-danger">You can add all your relevant experiences</small>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ experience_form.start_date.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+                                    {% if experience_form.start_date.errors %}
+                                    {{ experience_form.start_date(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in experience_form.start_date.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ experience_form.start_date(class="form-control form-control-sm", style="height: 30px;") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                       
+                                        {{ experience_form.end_date.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+                                        {% if experience_form.end_date.errors %}
+                                            {{ experience_form.end_date(class="form-control form-control-sm is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in experience_form.end_date.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ experience_form.end_date(class=" form-control form-control-sm", style="height: 30px;") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        
+                                        {{ experience_form.position.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+                                        {% if experience_form.position.errors %}
+                                        {{ experience_form.position(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in experience_form.position.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ experience_form.position(class="form-control form-control-sm", style="height: 30px;") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        
+                                        {{ experience_form.company.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+                                        {% if experience_form.company.errors %}
+                                        {{ experience_form.company(class="form-control form-control-sm is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in experience_form.company.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ experience_form.company(class="form-control form-control-sm", style="height: 30px;") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                    </div>
+                    </div>
+                    <div class="form-group text-center">
+                    {{ experience_form.experience_submit(class="btn btn-outline-info bg-primary mt-3 text-white mb-5") }}
+                    </div>
+                    </form>
+                  {% include 'education.html' %}
+                  {% include 'schedule.html' %}
+                </div>
+                </div>
+                </div>
+        
+            </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

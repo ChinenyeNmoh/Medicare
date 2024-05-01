@@ -1,0 +1,100 @@
+<form method="POST"  class="text-start needs-validation " action="" novalidate>
+    {{ education_form.csrf_token(id='education_csrf_token') }}
+    <legend class=" me-5 mt-3 text-success text-center">
+        <span style="color: red;">*</span>
+        Education
+    </legend>
+    <small class="text-danger ">You can add all your relevant education</small>
+<div class="row">
+<div class="col-md-4 ">
+    <div class="form-group">
+        {{ education_form.date_started.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+        {% if education_form.date_started.errors %}
+        {{ education_form.date_started(class="form-control form-control-sm is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in education_form.date_started.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ education_form.date_started(class="form-control form-control-sm", style="height: 30px;") }}
+        {% endif %}
+    </div>
+</div>
+    <div class="col-md-4">
+        <div class="form-group"> 
+            {{ education_form.date_ended.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+            {% if education_form.date_ended.errors %}
+                {{ education_form.date_ended(class="form-control form-control-sm is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in education_form.date_ended.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ education_form.date_ended(class=" form-control form-control-sm", style="height: 30px;") }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="{{ education_form.certificate_type.id }}" class="form-label fw-bold mt-2">
+                
+                {{ education_form.certificate_type.label.text  }}
+            </label>
+            {% if education_form.certificate_type.errors %}
+                {{ education_form.certificate_type(class="form-select is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in education_form.certificate_type.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ education_form.certificate_type(class="form-select", style="height: 37px;") }}
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+<div  class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            
+            {{ education_form.school.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+            {% if education_form.school.errors %}
+            {{ education_form.school(class="form-control form-control-sm is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in education_form.school.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ education_form.school(class="form-control form-control-sm", style="height: 30px;") }}
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+           
+            {{ education_form.course_of_study.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+            {% if education_form.course_of_study.errors %}
+            {{ education_form.course_of_study(class="form-control form-control-sm is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in education_form.course_of_study.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ education_form.course_of_study(class="form-control form-control-sm", style="height: 30px;") }}
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+</div>
+<div class="form-group text-center">
+{{ education_form.education_submit(class="btn btn-outline-info bg-primary mt-3 mb-5 text-white") }}
+</div>
+</form>

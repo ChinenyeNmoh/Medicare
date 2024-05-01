@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="main-content" class="site-main-content">
+    <section class="site-content-area">
+
+        <div class="uni-banner-default uni-background-1">
+            <div class="container-fluid">
+                <!-- Page title -->
+                <div class="page-title">
+                    <div class="page-title-inner ">
+                        <h1 class="text-white pt-5 depart">DEPARTMENTS</h1>
+                    </div>
+                </div>
+                <!-- End page title -->
+            </div>
+        </div>
+
+        <div class="uni-departments-body">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for dept in departments %}
+                    <div class="col-md-4">
+                        <div class="uni-departments-default">
+                            <div class="item-icons">
+                                <a href="#"><img src="{{ url_for('static', filename=dept.image) }}" alt="" class="img-responsive"></a>
+                            </div>
+                            <div class="item-caption">
+                                <h4><a href="#" class="text-decoration-none">{{ dept.title }}</a></h4>
+                                <p>{{ dept.description }}.</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+{% endblock %}

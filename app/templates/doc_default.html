@@ -1,0 +1,79 @@
+{% extends "doc_dashboard.html" %}
+{% block doc_dashboard_content %}
+
+<div class="main-bar">
+    <div class="d-flex bg-light my-dash pt-2" style="height: auto;">
+        <i class="fa-solid fa-gauge ms-2 fs-2 me-2 mt-1 text-danger"></i>
+        <h5 class="fs-2"> Dashboard</h5>
+    </div>
+    <div class="card my-profile">
+        <div class="card-body text-center">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="fa-solid fa-hospital-user text-primary fs-2"></i> <br>
+                            <p class="fw-bold">Total<br> Patients</p>
+                        </div>
+                        <h1 class="text-danger">3</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i><br>
+                            <p class="fw-bold">Total Appointment</p>
+                        </div>
+                        <h1 class="text-danger">{{all}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-2">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i><br>
+                            <p class="fw-bold">Open <br> Appointments</p>
+                        </div>
+                        <h1 class="text-danger">{{op}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow mt-5">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="me-5 text-start">
+                            <i class="far fa-calendar-check text-primary fs-2"></i><br>
+                            <p class="fw-bold"> Closed Appointments</p>
+                        </div>
+                        <h1 class="text-danger">{{cls}}</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}

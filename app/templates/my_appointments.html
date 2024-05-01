@@ -1,0 +1,65 @@
+{% extends "patient_dashboard.html" %}
+{% block dashboard_content %}
+<div class="main-bar">
+    <h5 class="text-center bg-light my-dash">My Dashboard</h5>
+    <div class="table-responsive">
+    <table class="table table-sm table-bordered" id="main-table">
+        <thead>
+            <tr>
+                <td class="bg-light" id="main-link" >Apt. No</td>
+                <td class="bg-light" id="main-link" >Apt. Date</td>
+                <td class="bg-light" id="main-link" >Apt. Time</td>
+                <td class="bg-light" id="main-link" >Status</td>
+                <td class="bg-light" id="main-link">Action</td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for app in appointments %}
+            <tr >
+                <td  id="main-link">{{app.appointment_no}}</td>
+                <td  id="main-link">{{app.appointment_date}}</td>
+                {% if app.appointment_time[0:2] | int < 12 %}
+                <td  id="main-link">{{app.appointment_time}}AM</td>
+                {% else %}
+                <td  id="main-link">{{app.appointment_time}}PM</td>
+                {% endif %}
+                <td  id="main-link">
+                   <span class="p-book rounded-pill bg-success">{{app.appointment_status}}</span>
+                </td>
+                <td >
+                    <div class="d-flex justify-content-center mt-2 ">
+                        <a href="{{ url_for('patient.my_appointment_details', id=app.id)}}"><i class="fa-solid fa-eye fs-4 me-2"></i></a>
+                        <a href="#"><i class="fa-solid fa-xmark fs-4 text-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{app.id}}"></i></a>
+                    </div>
+                </td>
+                    
+            </tr>
+            <div class="modal fade" id="staticBackdrop2{{app.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body bg-light fst-italic" style="height: 200px;">
+                            Are you sure you want to delete your appointment with doctor {{ app.doctor.first_name }}
+                            <div class="modal-footer">
+                                <div class=" text-center">
+                                    <button type="button" class="btn btn-outline-info bg-primary mt-3 text-white me-3" data-bs-dismiss="modal">Cancel</button>
+                                    <a type="button" href="{{ url_for('patient.cancel_appointment', id=app.id)}}" class="btn btn-danger mt-3 text-white">Yes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+{% endblock %}

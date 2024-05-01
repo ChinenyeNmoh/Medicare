@@ -1,0 +1,66 @@
+
+
+<form method="POST"  class="text-start needs-validation mb-3" action="" novalidate>
+    {{ schedule_form.csrf_token(id='schedule_csrf_token') }}
+    <legend class=" me-5 mt-3 text-success">
+        <span style="color: red;">*</span>
+        Work Schedule
+    </legend>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{ schedule_form.day_of_week.id }}" class="form-label fw-bold mt-2">
+                
+                {{ schedule_form.day_of_week.label.text  }}
+            </label>
+            {% if schedule_form.day_of_week.errors %}
+                {{ schedule_form.day_of_week(class="form-select is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in schedule_form.day_of_week.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ schedule_form.day_of_week(class="form-select", style="height: 37px;") }}
+            {% endif %}
+        </div>
+    </div>
+<div class="col-md-3">
+    <div class="form-group">
+        {{ schedule_form.start_time.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+        {% if schedule_form.start_time.errors %}
+        {{ schedule_form.start_time(class="form-control form-control-sm is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in schedule_form.start_time.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ schedule_form.start_time(class="form-control form-control-sm", style="height: 30px;") }}
+        {% endif %}
+    </div>
+</div>
+    <div class="col-md-3">
+        <div class="form-group">
+            
+            {{ schedule_form.end_time.label(class="form-control-label mt-2 mb-2 fw-bold") }}
+            {% if schedule_form.end_time.errors %}
+                {{ schedule_form.end_time(class="form-control form-control-sm is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in schedule_form.end_time.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ schedule_form.end_time(class=" form-control form-control-sm", style="height: 30px;") }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            {{ schedule_form.schedule_submit(class="btn btn-outline-info bg-primary mt-5 pt-1 text-white", style="height: 30px;") }}
+            </div>
+    </div>
+</div>
+
+</form>

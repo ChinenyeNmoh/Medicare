@@ -1,0 +1,67 @@
+{% extends "admin_dashboard.html" %}
+{% block admin_dashboard_content %}
+
+
+<div class="main-bar">
+    <h5 class="text-center bg-light my-dash pt-2">Create Department</h5>
+    <div class="card my-profile">
+        <div class="card-body text-center create-dept">
+            <div class="row">
+                <div class="col-md-9">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group ">
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label mt-2 fw-bold fs-5") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-sm") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.image.label(class="form-control-label mt-2 fw-bold fs-5") }}
+                    {% if form.image.errors %}
+                        {{ form.image(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.image.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.image(class="form-control form-control-sm") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label(class="form-control-label mt-2 fw-bold fs-5") }}
+                    {% if form.description.errors %}
+                        {{ form.description(class="form-control form-control-sm is-invalid", rows=5) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description(class="form-control form-control-sm", rows=5) }}
+                    {% endif %}
+                </div>
+               
+            </fieldset>
+            <div class="form-group text-center">
+                {{ form.submit(class="btn btn-outline-info bg-primary mt-3 text-white") }}
+            </div>
+            
+        </form>
+                
+    </div>
+</div>
+</div>
+</div>
+    
+</div>
+{% endblock %}
