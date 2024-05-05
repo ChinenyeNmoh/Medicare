@@ -1,0 +1,32 @@
+{% extends "admin_dashboard.html" %}
+{% block admin_dashboard_content %}
+<div class="main-bar">
+    <div class="d-flex justify-content-between bg-light my-dash pt-2 pb-2">
+        <h5 class="text-center ms-2 pt-1 pb-1">Patient Full Details</h5>
+        <a href="{{url_for('admin.admin_view_patients')}}" class="btn btn-danger me-2 pt-0 ">Back</a>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row mt-5 mb-5">
+            <div class="col-md-8 bg-light">
+                
+                    <div class="card bg-light" style="height: 100%;">
+                        <div class="card-body fw-bold" style="color: #413e3e;">
+                           
+                            <p>Patient: {{pat.first_name}} {{pat.last_name}}</p>
+                            <p>Age: {{pat.age}}</p>
+                            <p>Date of birth: {{pat.date_of_birth}}</p>
+                            <hr>
+                            <p>Email: {{pat.email}}</p>
+                            <p>Phone Number: {{pat.phone_number}}</p>
+                            <p>Contact Address: {{pat.contact_address}}</p>
+                            <hr>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

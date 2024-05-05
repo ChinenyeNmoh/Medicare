@@ -1,7 +1,7 @@
 {% extends "admin_dashboard.html" %}
 {% block admin_dashboard_content %}
 <div class="main-bar">
-    <h5 class="text-center bg-light my-dash pt-2"> All Doctors</h5>
+    <h5 class="text-center bg-light my-dash pt-2"> All Patients</h5>
     <div class="card my-profile">
         <div class="card-body text-center">
             <div class="row">
@@ -9,7 +9,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <span class="pt-2 pe-2">show entries</span>
-                            <form  class="d-flex" method="GET" action="{{ url_for('admin.admin_view_doctors') }}">
+                            <form  class="d-flex" method="GET" action="{{ url_for('admin.admin_view_patients') }}">
                                 <select id="entries" name="entries" class="form-select form-select-sm me-2 rounded" aria-label=".form-select-sm example">
                                     <option value="3">3</option>
                                     <option value="6">6</option>
@@ -21,7 +21,7 @@
                             </form> 
                         </div>                          
                         
-                        <form class="d-flex" method="GET", action="{{ url_for('admin.admin_view_doctors') }}">
+                        <form class="d-flex" method="GET", action="{{ url_for('admin.admin_view_patients') }}">
                             <input style="height: 40px;" id="search_query" name="search_query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button style="height: 40px;"  class="btn btn-outline-success" type="submit">Search</button>
                         </form>
@@ -32,22 +32,18 @@
                             <tr>
                                 <td class="bg-light" id="main-link">ID</td>
                                 <td class="bg-light" id="main-link">Name</td>
-                                <td class="bg-light" id="main-link">Department</td>
                                 <td class="bg-light" id="main-link">Phone Number</td>
-                                <td class="bg-light" id="main-link">Is Active</td>
-                                <td class="bg-light" id="main-link">Is Banned</td>
+                                <td class="bg-light" id="main-link">Email</td>
                                 <td class="bg-light" id="main-link">Action</td>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for doc in doctors %}
+                            {% for pat in patients %}
                             <tr >
                                 <td id="main-link">{{ loop.index }}</td> <!-- Use loop.index to auto-increment ID -->
-                                <td id="main-link">{{ doc.first_name }} {{ doc.last_name }}</td>
-                                <td id="main-link">{{ doc.department }}</td>
-                                <td id="main-link">{{ doc.phone_number }}</td>
-                                <td id="main-link">{{ doc.is_active }}</td>
-                                <td id="main-link">{{ doc.is_banned }}</td>
+                                <td id="main-link">{{ pat.first_name }} {{ pat.last_name }}</td>
+                                <td id="main-link">{{ pat.phone_number }}</td>
+                                <td id="main-link">{{ pat.email }}</td>
                                 <td >
                                     <div class="dropdown">
                                         <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,31 +53,22 @@
                                                 <ul class="dropdown-menu list-unstyled doc_link " aria-labelledby="dropdownMenuLink">
                                                     
                                                     <li >
-                                                        <a class=" dropdown-item  text-decoration-none d-flex" href="{{url_for('main.doc_details', id=doc.id)}}">
+                                                        <a class=" dropdown-item  text-decoration-none d-flex" href="{{url_for('admin.admin_view_patients_details', id=pat.id)}}">
                                                             <i class="fa-solid fa-eye text-primary me-2"></i>
-                                                           <p class="fw-bold">View</p>
+                                                           <p class="fw-bold">Full details</p>
                                                         </a>
                                                     </li>
                                             
                                                     <li >
-                                                        <a class=" dropdown-item  text-decoration-none d-flex" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ doc.id }}">
+                                                        <a class=" dropdown-item  text-decoration-none d-flex" href="{{url_for('admin.admin_view_patients_appointments', id=pat.id)}}">
                                                             <i class="fa-solid fa-pen-to-square text-success me-2"></i>
-                                                            <p class="fw-bold">Edit</p>
+                                                            <p class="fw-bold">View Appointment</p>
                                                         </a>
                                                        
                                                     </li>
-                                                    <li >
-                                                        <a class=" dropdown-item  text-decoration-none d-flex" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{ doc.id }}">
-                                                            <i class="fa-solid fa-trash text-danger me-2"></i>
-                                                            <p class="fw-bold">Delete</p>
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                     </div>
-                                    {% include 'admin_delete_doc_modal.html' %}
-                                    {% include 'admin_update_doc_modal.html' %}
-                                    
-                                    
+                                  
                                 </td>
                             </tr>
                             {% endfor %}
@@ -96,12 +83,12 @@
                         {% endif %}
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                              {% for page_num in doctors.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                              {% for page_num in patients.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                                 {% if page_num %}
-                                  {% if doctors.page == page_num %}
-                                  <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('admin.admin_view_doctors', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+                                  {% if patients.page == page_num %}
+                                  <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('admin.admin_view_patients', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
                                   {% else %}
-                                  <a class="page-link me-1 ms-1" href="{{ url_for('admin.admin_view_doctors', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+                                  <a class="page-link me-1 ms-1" href="{{ url_for('admin.admin_view_patients', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
                                   {% endif %}
                                 {% else %}
                                  <p class="me-1 ms-1">...</p>

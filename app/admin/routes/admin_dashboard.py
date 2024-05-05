@@ -6,6 +6,8 @@ from flask_login import current_user, login_required
 from app.models.doctor import  Doctor
 from app.models.patient import Patient, UserRole
 from app.models.appointment import Appointment
+from app.models.messages import Message
+
 from app.admin.forms.departments import DepartmentForm, UpdateDepartmentForm
 
 from app.admin.routes import admin
@@ -132,4 +134,59 @@ def delete_department(id):
             flash(str(e), 'danger')
         return redirect(url_for('admin.view_department'))
 
-    
+
+
+#messages
+@admin.route('/view_messages', strict_slashes=False)
+@login_required
+def view_messages():
+    page = request.args.get('page', 1, type=int)
+    per_page = 6
+    status = request.args.get('status', '', type=str)
+    search_query = request.args.get('search_query', '', type=str)
+    # Query departments and apply search filter
+    if status:
+        query = Message.query.filter_by(message_status = status).order_by(Message.created_at)
+    else:
+        query = Message.query.order_by(Message.created_at)
+    if search_query:
+        query = query.filter(Message.name.contains(search_query))
+    # Paginate the results
+    messages = query.paginate(page=page, per_page=per_page, error_out=False)
+    total = messages.total
+
+    return render_template(
+        'view_messages.html', 
+        title="View Messages", 
+        messages=messages,
+        total=total,
+        per_page=per_page,
+        search_query=search_query
+        )
+
+
+#update messages
+@admin.route('/update_message/<id>', methods=['GET'], strict_slashes=False)
+@login_required
+def update_message(id):
+    msg = Message.query.filter_by(id=id).first()
+    if msg:
+        msg.message_status='Resolved'
+        db.session.commit()
+        flash('Message Updated', 'success')
+    else:
+        flash('Message not found', 'danger')
+    return redirect(url_for('admin.view_messages'))
+
+#delete messages
+@admin.route('/delete_message/<id>', methods=['GET'], strict_slashes=False)
+@login_required
+def delete_message(id):
+    msg = Message.query.filter_by(id=id).first()
+    if msg:
+        db.session.delete(msg)
+        db.session.commit()
+        flash('Message deleted', 'success')
+    else:
+        flash('Message not found', 'danger')
+    return redirect(url_for('admin.view_messages'))

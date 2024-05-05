@@ -97,21 +97,21 @@
                                 
                             </div>
                             <div class="uni-send-a-message-body">
-                                <form action="#">
+                                <form method="post" action="{{ url_for('main.create_message')}}">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" name="name" value="" placeholder="Your name">
+                                        <input type="text" class="form-control" name="name" required placeholder="Your name">
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                        <input type="tel" class="form-control" name="phone" value="" placeholder="Phone number">
+                                        <input type="tel" class="form-control" name="phone_number" required placeholder="Phone number">
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                        <input type="email" class="form-control" name="email" value="" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" required placeholder="Email">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <textarea id="message" name="phone" class="form-control" placeholder="Note"></textarea>
+                                        <textarea id="message" name="comment" class="form-control" required placeholder="Note"></textarea>
                                     </div>
                                     <button class="btn btn-primary">Send</button>
                                 </form>

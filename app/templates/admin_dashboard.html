@@ -30,9 +30,9 @@
                                     <div id="collapseapt" class="accordion-collapse collapse" aria-labelledby="headingapt" data-bs-parent="#accordionapt">
                                         <div class="accordion-body">
                                             <ul class="text-start">
-                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.todays_appointments')}}">Today's Appointments</a></li>
-                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.admin_open_appointments')}}">Open Appointments</a></li>
-                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.admin_closed_appointments')}}">Closed Appointments</a></li>
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('admin.view_appointments')}}">View Appointments</a></li>
+                                                
+                                                <li style="height: 30px;"><a class="dept-link text-decoration-none" href="{{url_for('patient.my_appointment')}}">My Appointments</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                         
                         <tr>
                             <td id="link">
-                                <a style="height: 30px;" href="#" id="link" class="d-flex align-items-center text-decoration-none">
+                                <a style="height: 30px;" href="{{url_for('admin.admin_view_patients')}}" id="link" class="d-flex align-items-center text-decoration-none">
                                     
                                     <i class="fa-solid fa-hospital-user text-primary me-4 fs-5"></i>
                                     Patients
@@ -87,7 +87,7 @@
                         </tr>
                         <tr>
                             <td id="link">
-                                <a style="height: 30px;" href="#" id="link" class="d-flex align-items-center text-decoration-none">
+                                <a style="height: 30px;" href="{{url_for('admin.admin_view_admin')}}" id="link" class="d-flex align-items-center text-decoration-none">
             
                                     <i class="fa-solid fa-list-check text-primary me-4 fs-5"></i>
                                     Manage Admin
@@ -95,6 +95,17 @@
                             </td>
                             
                         </tr>
+                        <tr>
+                            <td id="link">
+                                <a style="height: 30px;" href="{{url_for('admin.view_messages')}}" id="link" class="d-flex align-items-center text-decoration-none">
+                                    <i class="fa-solid fa-message text-primary me-4 fs-5"></i>
+                                    
+                                    Messages
+                                </a>
+                            </td>
+                            
+                        </tr>
+                        
                         <tr>
                             <td class="accordion">
                                 <div id="accordionweb">

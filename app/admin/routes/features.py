@@ -223,6 +223,107 @@ def admin_view_doctors():
         search_query=search_query
         )
 
+#view patients
+@admin.route('/admin_view_patients', strict_slashes=False)
+@login_required
+def admin_view_patients():
+   page = request.args.get('page', 1, type=int)
+   per_page = request.args.get('entries', 6, type=int)
+   search_query = request.args.get('search_query', '', type=str)
+   # Query departments and apply search filter
+   find_pat = Patient.query.filter(Patient.role == 'patient').order_by(Patient.first_name)
+   if search_query:
+      find_pat = find_pat.filter(or_(Patient.first_name.contains(search_query), Patient.last_name.contains(search_query)))
+       
+    
+    # Paginate the results
+   find_pat = find_pat.paginate(page=page, per_page=per_page, error_out=False)
+   total = find_pat.total
+
+   return render_template(
+        'admin_view_patients.html', 
+        title="View Doctors", 
+        patients=find_pat,
+        total=total,
+        per_page=per_page,
+        search_query=search_query
+        )
+
+#view admin
+@admin.route('/admin_view_admin', strict_slashes=False)
+@login_required
+def admin_view_admin():
+   page = request.args.get('page', 1, type=int)
+   per_page = request.args.get('entries', 6, type=int)
+   search_query = request.args.get('search_query', '', type=str)
+   # Query departments and apply search filter
+   query = Patient.query.filter(Patient.role == 'admin').order_by(Patient.first_name)
+   if search_query:
+      query = query.filter(or_(Patient.first_name.contains(search_query), Patient.last_name.contains(search_query)))
+    # Paginate the results
+   find_admin = query.paginate(page=page, per_page=per_page, error_out=False)
+   total = find_admin.total
+
+   return render_template(
+        'view_admin.html', 
+        title="View Admin", 
+        admin=find_admin,
+        total=total,
+        per_page=per_page,
+        search_query=search_query
+        )
+
+
+#view patients details
+@admin.route('/admin_view_patients_details/<id>', strict_slashes=False)
+@login_required
+def admin_view_patients_details(id):
+   find_pat = Patient.query.filter_by(id=id).first()
+   return render_template(
+        'admin_view_patient_details.html', 
+        title="View Patient Details", 
+        pat=find_pat
+        )
+
+
+#view patients appointments
+@admin.route('/admin_view_patients_appointments/<id>', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def admin_view_patients_appointments(id):
+    try:
+      page = request.args.get('page', 1, type=int)
+      per_page = request.args.get('entries', 6, type=int)
+      search_query = request.args.get('search_query', '', type=str)
+
+        # Base query
+      query = db.session.query(Appointment).join(Patient).filter(Appointment.patient_id == id)
+        # Apply search filter
+      if search_query:
+         query = query.filter(
+            (Doctor.first_name.contains(search_query)) | 
+            (Doctor.last_name.contains(search_query))
+            )
+      else:
+         query = query.order_by(Appointment.appointment_date, Appointment.appointment_time)
+        # Paginate the results
+      appointments = query.paginate(page=page, per_page=per_page, error_out=False)
+      total = appointments.total
+    except Exception as e:
+      flash('Error retrieving Appointment data: {}'.format(str(e)), 'danger')
+      total = 0
+      appointments = None
+
+    return render_template(
+        'admin_view_patients_appointment.html', 
+        title='Closed Appointments', 
+        total=total,
+        patient_id = id,
+        appointments=appointments,
+        per_page=per_page,
+        search_query=search_query
+    )
+
+
 @admin.route('/admin_update_doc/<id>', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def admin_update_doc(id):
@@ -257,7 +358,7 @@ def admin_update_doc(id):
    return render_template('admin_update_doc.html', title="Doctors", form=form)
 
     
-#delete department
+#delete doctor
 @admin.route('/delete_doc/<id>', methods= ['GET'], strict_slashes=False)
 @login_required
 def delete_doc(id):
@@ -274,11 +375,13 @@ def delete_doc(id):
 
 
 
-@admin.route('/todays_appointments', methods=['GET'], strict_slashes=False)
+
+@admin.route('/view_appointments', methods=['GET'], strict_slashes=False)
 @login_required
-def todays_appointments():
+def view_appointments():
    page = request.args.get('page', 1, type=int)
-   per_page = request.args.get('entries', 6, type=int)
+   per_page = 10
+   status = request.args.get('status', '', type=str)
    search_query = request.args.get('search_query', '', type=str)
 
    # Get the current date and format it as a string
@@ -286,8 +389,18 @@ def todays_appointments():
    string_date = todays_date.strftime(" %A,  %d %B, %Y ")
    print(string_date)
 
-    # Query appointments for the current date
-   query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_date == string_date)
+   if status:
+      if status == "today_appointments":
+         query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_date == string_date)
+      elif status == "open_appointments":
+         query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status == 'Booked', Appointment.appointment_date != string_date)
+      elif status == 'closed_appointments':
+         query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status != "Booked")
+      else:
+         query = db.session.query(Appointment).join(Patient)
+   else:
+      query = db.session.query(Appointment).join(Patient)
+
    if search_query:
       query  = query.filter(
             (Patient.first_name.contains(search_query)) | 
@@ -297,7 +410,7 @@ def todays_appointments():
    appointments = query.paginate(page=page, per_page=per_page, error_out=False)
    total = appointments.total
    return render_template(
-        'admin_todays_appointments.html', 
+        'admin_view_appointments.html', 
         title='Todays Appointments', 
         total=total, 
         appointments=appointments,
@@ -306,88 +419,38 @@ def todays_appointments():
     )
 
 
-@admin.route('/today_appointment_details/<id>', strict_slashes=False)
+@admin.route('/view_appointment_details/<id>', strict_slashes=False)
 @login_required
-def today_appointment_details(id):
+def view_appointment_details(id):
     find_app = Appointment.query.filter_by(id=id).first()
-    doc = Doctor.query.filter_by(id=find_app.doctor_id).first()
     return render_template(
         'admin_appointment_details.html',
         appointments=find_app, 
         title= "Appointment Details",
-        appointment_detail=find_app,
-        doc=doc
+        appointment_detail=find_app
         )
 
-@admin.route('/admin_closed_appointments', methods=['GET', 'POST'], strict_slashes=False)
+#view admin patient appointment
+@admin.route('/view_patient_appointment_details/<id>', strict_slashes=False)
 @login_required
-def admin_closed_appointments():
-    try:
-      page = request.args.get('page', 1, type=int)
-      per_page = request.args.get('entries', 6, type=int)
-      search_query = request.args.get('search_query', '', type=str)
-
-        # Base query
-      query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status != "Booked")
-        # Apply search filter
-      if search_query:
-         query = query.filter(
-            (Patient.first_name.contains(search_query)) | 
-            (Patient.last_name.contains(search_query))
-            )
-      else:
-         query = query.order_by(Appointment.appointment_date, Appointment.appointment_time)
-        # Paginate the results
-      appointments = query.paginate(page=page, per_page=per_page, error_out=False)
-      total = appointments.total
-    except Exception as e:
-      flash('Error retrieving Appointment data: {}'.format(str(e)), 'danger')
-      total = 0
-      appointments = None
-
+def view_patient_appointment_details(id):
+    find_app = Appointment.query.filter_by(id=id).first()
     return render_template(
-        'admin_closed_appointments.html', 
-        title='Closed Appointments', 
-        total=total, 
-        appointments=appointments,
-        per_page=per_page,
-        search_query=search_query
-    )
+        'admin_appointment_details.html',
+        appointments=find_app, 
+        title= "Appointment Details",
+        appointment_detail=find_app
+        )
 
 
-@admin.route('/admin_open_appointments', methods=['GET', 'POST'], strict_slashes=False)
+@admin.route('/delete_appointment/<id>', strict_slashes=False)
 @login_required
-def admin_open_appointments():
-   try:
-      page = request.args.get('page', 1, type=int)
-      per_page = request.args.get('entries', 6, type=int)
-      search_query = request.args.get('search_query', '', type=str)
-
-      # Get the current date and format it as a string
-      todays_date = datetime.now()
-      string_date = todays_date.strftime(" %A,  %d %B, %Y ")
-      print(string_date)
-        # Base query
-      query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status == 'Booked', Appointment.appointment_date != string_date)
-        # Apply search filter
-      if search_query:
-         query = query.filter(
-            (Patient.first_name.contains(search_query)) | 
-            (Patient.last_name.contains(search_query))
-            )
-      query = query.order_by(Appointment.appointment_date, Appointment.appointment_time)
-        # Paginate the results
-      appointments = query.paginate(page=page, per_page=per_page, error_out=False)
-      total = appointments.total
-   except Exception as e:
-      flash('Error retrieving Appointment data: {}'.format(str(e)), 'danger')
-      total = 0
-      appointments = None
-   return render_template(
-        'admin_open_appointments.html', 
-        title='Open Appointments', 
-        total=total, 
-        appointments=appointments,
-        per_page=per_page,
-        search_query=search_query
-    )
+def delete_appointment(id):
+    find_app = Appointment.query.filter_by(id=id).first()
+    if find_app:
+        db.session.delete(find_app)
+        db.session.commit()
+        flash('Appointment deleted', 'success')
+    else:
+        flash('Appointment not found', 'danger')
+    return redirect(url_for('admin.view_appointments'))
