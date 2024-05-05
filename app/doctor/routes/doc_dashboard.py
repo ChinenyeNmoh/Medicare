@@ -98,16 +98,25 @@ def addDetails():
         schedule_form=schedule_form
         )
 
-@doctor.route('/all_appointments', methods=['GET', 'POST'], strict_slashes=False)
+@doctor.route('/doc_appointments', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
-def all_appointments():
+def doc_appointments():
     try:
       page = request.args.get('page', 1, type=int)
-      per_page = request.args.get('entries', 6, type=int)
+      per_page = 10
+      status = request.args.get('status', '', type=str)
       search_query = request.args.get('search_query', '', type=str)
 
         # Base query
-      query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id)
+      if status:
+         if status == "open_appointments":
+            query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id, Appointment.appointment_status =='Booked')
+         elif status == 'closed_appointments':
+           query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id, Appointment.appointment_status !='Booked')
+         else:
+            query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id)
+      else:
+         query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id)
 
         # Apply search filter
       if search_query:
@@ -136,77 +145,7 @@ def all_appointments():
         search_query=search_query
     )
 
-@doctor.route('/closed_appointments', methods=['GET', 'POST'], strict_slashes=False)
-@login_required
-def closed_appointments():
-    try:
-      page = request.args.get('page', 1, type=int)
-      per_page = request.args.get('entries', 6, type=int)
-      search_query = request.args.get('search_query', '', type=str)
 
-        # Base query
-      query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id, Appointment.appointment_status !='Booked')
-        # Apply search filter
-      if search_query:
-         query = query.filter(
-            (Patient.first_name.contains(search_query)) | 
-            (Patient.last_name.contains(search_query))
-            )
-      else:
-         query = query.order_by(Appointment.appointment_date, Appointment.appointment_time)
-        # Paginate the results
-      appointments = query.paginate(page=page, per_page=per_page, error_out=False)
-      total = appointments.total
-    except Exception as e:
-      flash('Error retrieving Appointment data: {}'.format(str(e)), 'danger')
-      total = 0
-      appointments = Appointment.query.filter(literal(False))
-
-    return render_template(
-        'closed_doc_appointment.html', 
-        title='Closed Appointments', 
-        total=total, 
-        appointments=appointments,
-        per_page=per_page,
-        search_query=search_query
-    )
-
-
-@doctor.route('/open_appointments', methods=['GET', 'POST'], strict_slashes=False)
-@login_required
-def open_appointments():
-    try:
-      page = request.args.get('page', 1, type=int)
-      per_page = request.args.get('entries', 6, type=int)
-      search_query = request.args.get('search_query', '', type=str)
-      
-
-        # Base query
-      query = db.session.query(Appointment).join(Patient).filter(Appointment.doctor_id == current_user.id, Appointment.appointment_status =='Booked')
-        # Apply search filter
-      if search_query:
-         query = query.filter(
-            (Patient.first_name.contains(search_query)) | 
-            (Patient.last_name.contains(search_query))
-            )
-      else:
-         query = query.order_by(Appointment.appointment_date, Appointment.appointment_time)
-        # Paginate the results
-      appointments = query.paginate(page=page, per_page=per_page, error_out=False)
-      total = appointments.total
-    except Exception as e:
-      flash('Error retrieving Appointment data: {}'.format(str(e)), 'danger')
-      total = 0
-      appointments = Appointment.query.filter(literal(False))
-
-    return render_template(
-        'open_doc_appointment.html', 
-        title='Open Appointments', 
-        total=total, 
-        appointments=appointments,
-        per_page=per_page,
-        search_query=search_query
-    )
         
 @doctor.route('/doc_appointment_details/<id>', methods=['GET', 'POST'], strict_slashes=False)
 @login_required

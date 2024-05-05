@@ -10,20 +10,18 @@
     </div>    
     <div class="d-flex justify-content-between mt-5">
         <div class="d-flex">
-            <span class="pt-2 pe-2 ms-3">show entries</span>
-            <form  class="d-flex" method="GET" action="{{ url_for('doctor.all_appointments') }}">
-                <select id="entries" name="entries" class="form-select form-select-sm me-2 rounded" aria-label=".form-select-sm example">
-                    <option value="3">3</option>
-                    <option value="6">6</option>
-                    <option value="9">9</option>
-                    <option value="12">12</option>
-                    <option value="15">15</option>
+            <span class="pt-2 pe-2 ms-3">Select filter</span>
+            <form  class="d-flex" method="GET" action="{{ url_for('doctor.doc_appointments') }}">
+                <select id="status" name="status" class="form-select form-select-sm me-2 rounded" aria-label=".form-select-sm example">
+                    <option value="">All</option>
+                    <option value="open_appointments">Open Appointments</option>
+                    <option value="closed_appointments">Closed Appointments</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Apply</button>
             </form> 
-        </div>                          
+        </div>                        
         
-        <form class="d-flex" method="GET", action="{{ url_for('doctor.all_appointments') }}">
+        <form class="d-flex" method="GET", action="{{ url_for('doctor.doc_appointments') }}">
             <input style="height: 40px;" id="search_querys" name="search_query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button style="height: 40px;"  class="btn btn-outline-success me-4" type="submit">Search</button>
         </form>
@@ -78,9 +76,9 @@
           {% for page_num in appointments.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
             {% if page_num %}
               {% if appointments.page == page_num %}
-              <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('doctor.all_appointments', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+              <a class="page-link bg-primary text-white me-1 ms-1" href="{{ url_for('doctor.doc_appointments', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
               {% else %}
-              <a class="page-link me-1 ms-1" href="{{ url_for('doctor.all_appointments', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
+              <a class="page-link me-1 ms-1" href="{{ url_for('doctor.doc_appointments', entries=per_page, page=page_num, search_query=search_query) }}">{{ page_num }}</a>
               {% endif %}
             {% else %}
              <p class="me-1 ms-1">...</p>
