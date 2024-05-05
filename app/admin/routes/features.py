@@ -393,7 +393,7 @@ def view_appointments():
       if status == "today_appointments":
          query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_date == string_date)
       elif status == "open_appointments":
-         query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status == 'Booked', Appointment.appointment_date != string_date)
+         query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status == 'Booked')
       elif status == 'closed_appointments':
          query = db.session.query(Appointment).join(Patient).filter(Appointment.appointment_status != "Booked")
       else:

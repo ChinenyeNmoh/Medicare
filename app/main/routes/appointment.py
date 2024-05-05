@@ -68,9 +68,10 @@ def appointment(id):
     booked_app = Appointment.query.filter_by(doctor_id=id).all()
     appointment_dict = {}
     for t in booked_app:
-        appointment_date = t.appointment_date.split(',')[0].strip()
-        appointment_time = t.appointment_time.strip()
-        appointment_dict[appointment_date] = appointment_time
+        if t.appointment_status == 'Booked':
+            appointment_date = t.appointment_date.split(',')[0].strip()
+            appointment_time = t.appointment_time.strip()
+            appointment_dict[appointment_date] = appointment_time
 
     print(appointment_dict)
     try:
@@ -155,7 +156,7 @@ def doc_book_appointment(id):
             print(find_app)
             if find_app:
                 flash(f'You have a pending appointment with patient {pat.first_name}. Update the pending appointment to book', 'warning')
-                return redirect(url_for('doctor.open_appointments', id=id))
+                return redirect(url_for('doctor.doc_appointments'))
             else:
                 new_appointment = Appointment(
                     doctor_id=current_user.id,
@@ -185,8 +186,8 @@ def doc_book_appointment(id):
                     clinic_phone1=hospital.phone1,
                     clinic_email1=hospital.email1
                     )
-                flash('New appointment created. A confirmation mail has been sent to your email', 'success')
-                return redirect(url_for('doctor.open_appointments'))
+                flash('New appointment created. A confirmation mail has been sent to patients email', 'success')
+                return redirect(url_for('doctor.doc_appointments'))
     except Exception as e:
         flash(f'Error creating appointment: {e}', 'danger')
         return redirect(url_for('doctor.all_patients', id=id))

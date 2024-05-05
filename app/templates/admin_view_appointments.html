@@ -29,11 +29,11 @@
                     <table class="table table-sm table-bordered" id="main-table">
                         <thead class="text-start">
                             <tr>
-                                <td class="bg-light" id="main-link" >Apt. No</td>
                                 <td class="bg-light" id="main-link" >Created At</td>
                                 <td class="bg-light" id="main-link" >Apt. Date</td>
                                 <td class="bg-light" id="main-link" >Apt. Time</td>
-                                <td class="bg-light" id="main-link" >Patient Name</td>
+                                <td class="bg-light" id="main-link" >Doctor</td>
+                                <td class="bg-light" id="main-link" >Patient</td>
                                 <td class="bg-light" id="main-link" >Status</td>
                                 <td class="bg-light" id="main-link">Action</td>
                             </tr>
@@ -41,7 +41,6 @@
                         <tbody>
                             {% for app in appointments %}
                             <tr >
-                                <td  id="main-link">{{app.appointment_no}}</td>
                                 <td  id="main-link">{{app.created_at.strftime("%d %B, %Y")}}</td>
                                 <td  id="main-link">{{app.appointment_date}}</td>
                                 {% if app.appointment_time[0:2] | int < 12 %}
@@ -49,6 +48,7 @@
                                 {% else %}
                                 <td  id="main-link">{{app.appointment_time}}PM</td>
                                 {% endif %}
+                                <td  id="main-link">{{app.doctor.first_name}} {{app.doctor.last_name}}</td>
                                 <td  id="main-link">{{app.patient.first_name}} {{app.patient.last_name}}</td>
                                 <td  id="main-link">
                                    <span class="p-book rounded-pill bg-success">{{app.appointment_status}}</span>
