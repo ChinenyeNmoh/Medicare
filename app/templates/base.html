@@ -98,6 +98,7 @@
                             </div>
                             <div class="uni-send-a-message-body">
                                 <form method="post" action="{{ url_for('main.create_message')}}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
                                         <input type="text" class="form-control" name="name" required placeholder="Your name">

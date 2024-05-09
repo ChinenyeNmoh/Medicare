@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 
 from app.config import config
 
@@ -26,6 +27,8 @@ def create_app(config_name):
     bcrypt.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    csrf = CSRFProtect(app)
+    csrf.init_app(app)
     #CORS(app)
 
 

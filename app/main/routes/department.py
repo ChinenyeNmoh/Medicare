@@ -12,7 +12,7 @@ def department():
 
 
 #view messages
-@main.route('/create_message', methods= ['POST'], strict_slashes=False)
+@main.route('/create_message', methods= ['GET', 'POST'], strict_slashes=False)
 def create_message():
     prev_page = request.referrer
     try:
