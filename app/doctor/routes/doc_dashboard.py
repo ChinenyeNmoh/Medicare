@@ -165,7 +165,7 @@ def doc_appointment_details(id):
                db.session.delete(find_app)
                db.session.commit()
                flash('Appointment cancelled successfully!', 'success')
-               return redirect(url_for('doctor.open_appointments'))
+               return redirect(url_for('doctor.doc_appointments'))
             else:
                flash('Appointment information updated successfully!', 'success')
                return redirect(url_for('doctor.doc_appointment_details', id=id))

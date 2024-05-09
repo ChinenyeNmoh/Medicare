@@ -18,9 +18,8 @@ def passwordReset():
         if form.validate_on_submit():
             userEmail = form.email.data
             user = Patient.query.filter_by(email=userEmail).first()
+            print(user)
             doc = Doctor.query.filter_by(email=userEmail).first()
-            print(doc)
-            print(doc.is_email_verified)
             if user:
                 if not user.is_email_verified:
                     flash('You have not verified your email. Check your email for the verification link.', 'warning')

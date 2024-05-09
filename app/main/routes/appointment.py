@@ -64,18 +64,29 @@ def appointment(id):
     appointment_day = request.args.get('appointment_day')
     day_name = request.args.get('day_name')
     appoint_time = request.args.get('appointment_time')
-    print(appoint_time)
     booked_app = Appointment.query.filter_by(doctor_id=id).all()
     appointment_dict = {}
+    current = datetime.now()
+    current_str = current.strftime(" %d %B, %Y ").strip()
+    print(current_str)
     for t in booked_app:
         if t.appointment_status == 'Booked':
-            appointment_date = t.appointment_date.split(',')[0].strip()
+            appointment_date, appoint_d = t.appointment_date.split(',', 1)
+            appointment_date=appointment_date.strip()
+            print('appointment',appointment_date)
+            appoint_d=appoint_d.strip()
+            print(appoint_d)
             appointment_time = t.appointment_time.strip()
-            appointment_dict[appointment_date] = appointment_time
+            if appoint_d > current_str:
+                appointment_dict[appointment_date] = appointment_time
 
     print(appointment_dict)
     try:
         if appointment_day and day_name and appoint_time:
+            docs = Doctor.query.filter_by(id=current_user.id).first()
+            if docs or current_user.id == id:
+                flash('Select a patient to book appointment for', 'warning ')
+                return redirect(url_for('doctor.all_patients'))
             find_app = Appointment.query.filter_by(doctor_id=id, patient_id=current_user.id, appointment_status='Booked').first()
             print(find_app)
             if find_app:
@@ -144,10 +155,19 @@ def doc_book_appointment(id):
     appoint_time = request.args.get('appointment_time')
     booked_app = Appointment.query.filter_by(doctor_id=current_user.id).all()
     appointment_dict = {}
+    current = datetime.now()
+    current_str = current.strftime(" %d %B, %Y ").strip()
+    print(current_str)
     for t in booked_app:
-        appointment_date = t.appointment_date.split(',')[0].strip()
-        appointment_time = t.appointment_time.strip()
-        appointment_dict[appointment_date] = appointment_time
+        if t.appointment_status == 'Booked':
+            appointment_date, appoint_d = t.appointment_date.split(',', 1)
+            appointment_date=appointment_date.strip()
+            print('appointment',appointment_date)
+            appoint_d=appoint_d.strip()
+            print(appoint_d)
+            appointment_time = t.appointment_time.strip()
+            if appoint_d > current_str:
+                appointment_dict[appointment_date] = appointment_time
 
     print(appointment_dict)
     try:
